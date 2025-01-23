@@ -1,0 +1,16 @@
+name: Whitespace
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  Whitespace:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check for whitespace
+        run: |
+          if grep -nHR '[[:space:]]$' . --exclude-dir=.git; then
+            "Files cannot have whitespace!"
+            exit 1
+          fi
